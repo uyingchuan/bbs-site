@@ -1,30 +1,32 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     isLoggedIn: false,
     userInfo: null as any,
-    rememberMe: false
+    rememberMe: false,
   }),
-  
+
+  getters: {},
+
   actions: {
     setLoginState(status: boolean) {
-      this.isLoggedIn = status
+      this.isLoggedIn = status;
     },
-    
+
     setUserInfo(info: any) {
-      this.userInfo = info
+      this.userInfo = info;
     },
-    
+
     setRememberMe(status: boolean) {
-      this.rememberMe = status
+      this.rememberMe = status;
     },
-    
+
     logout() {
-      this.isLoggedIn = false
-      this.userInfo = null
-    }
+      this.isLoggedIn = false;
+      this.userInfo = null;
+    },
   },
-  
-  persist: true
-}) 
+
+  persist: true,
+});

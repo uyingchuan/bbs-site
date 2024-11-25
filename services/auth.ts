@@ -1,8 +1,8 @@
-import { request } from '~/utils/request'
+import { request } from '~/utils/request';
 
 interface LoginParams {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 export const authService = {
@@ -10,21 +10,21 @@ export const authService = {
   login(data: LoginParams) {
     return request('/auth/login', {
       method: 'POST',
-      body: data
-    })
+      body: data,
+    });
   },
 
   // 获取用户信息
   getUserInfo() {
     return request('/auth/user-info', {
-      method: 'GET'
-    })
+      method: 'GET',
+    });
   },
 
   // 登出
   logout() {
     return request('/auth/logout', {
-      method: 'POST'
-    })
-  }
-} 
+      method: 'POST',
+    });
+  },
+};

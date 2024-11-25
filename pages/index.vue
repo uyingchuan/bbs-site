@@ -2,21 +2,26 @@
   <div class="container">
     <h1>首页</h1>
     <p>欢迎回来，{{ userStore.userInfo?.username }}</p>
-    <button @click="handleLogout" class="logout-btn">退出登录</button>
+    <button
+      class="logout-btn"
+      @click="handleLogout"
+    >
+      退出登录
+    </button>
   </div>
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/user'
-import { useRouter } from 'vue-router'
+import { useUserStore } from '~/stores/user';
+import { useRouter } from 'vue-router';
 
-const userStore = useUserStore()
-const router = useRouter()
+const userStore = useUserStore();
+const router = useRouter();
 
 const handleLogout = () => {
-  userStore.logout()
-  router.push('/login')
-}
+  userStore.logout();
+  router.push('/login');
+};
 </script>
 
 <style scoped>
@@ -40,4 +45,4 @@ const handleLogout = () => {
 .logout-btn:hover {
   background: #cc0000;
 }
-</style> 
+</style>

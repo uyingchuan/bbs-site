@@ -1,14 +1,10 @@
 <template>
-  <div>
+  <NuxtLayout>
     <NuxtPage />
-  </div>
+  </NuxtLayout>
 </template>
 
-<script setup>
-// 确保pinia store在应用启动时可用
-import { useUserStore } from '~/stores/user'
-const userStore = useUserStore()
-</script>
+<script setup></script>
 
 <style>
 /* 添加一些全局样式 */
@@ -19,7 +15,7 @@ const userStore = useUserStore()
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
 }
 </style>
