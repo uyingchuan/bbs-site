@@ -30,3 +30,14 @@ export const useUserStore = defineStore('user', {
 
   persist: true,
 });
+
+export interface LoginResponse {
+  token: string;
+  userInfo: UserInfo;
+}
+
+export interface UserInfo {
+  id: string;
+  email: string;
+  userName: string;
+}

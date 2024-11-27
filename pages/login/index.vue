@@ -1,3 +1,87 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/user';
+import { useVuelidate } from '@vuelidate/core';
+import { email, minLength, required } from '@vuelidate/validators';
+import { useLocalStorage } from '@vueuse/core';
+import { authService } from '~/services/auth';
+
+const router = useRouter();
+const userStore = useUserStore();
+
+const account = ref('');
+const password = ref('');
+const rememberMe = ref(userStore.rememberMe);
+const loginError = ref('');
+const isLoading = ref(false);
+
+// 如果之前选择了记住密码，从localStorage加载保存的账号密码
+const savedCredentials = useLocalStorage('credentials', {
+  account: '',
+  password: '',
+});
+account.value = savedCredentials.value.account;
+password.value = savedCredentials.value.password;
+rememberMe.value = !!account.value;
+
+// 表单验证规则
+const rules = {
+  account: {
+    required,
+    email: email,
+  },
+  password: {
+    required,
+    minLength: minLength(6),
+  },
+};
+
+const v$ = useVuelidate(rules, { account, password });
+
+const handleLogin = async () => {
+  loginError.value = '';
+
+  // 验证表单
+  const isValid = await v$.value.$validate();
+  if (!isValid) return;
+
+  try {
+    isLoading.value = true;
+
+    // 调用登录接口
+    const res = await authService.login({
+      email: account.value,
+      password: password.value,
+    });
+    // 保存token
+    localStorage.setItem('token', res.token);
+
+    // 保存登录状态
+    userStore.setLoginState(true);
+    userStore.setUserInfo(res.userInfo);
+
+    // 处理记住密码
+    userStore.setRememberMe(rememberMe.value);
+    if (rememberMe.value) {
+      useLocalStorage('credentials', {
+        account: account.value,
+        password: password.value,
+      });
+    } else {
+      localStorage.removeItem('credentials');
+    }
+
+    // 登录成功后跳转
+    await router.push('/');
+  } catch (error: any) {
+    loginError.value = error.message || '登录失败，请稍后重试';
+  } finally {
+    isLoading.value = false;
+  }
+};
+</script>
+
 <template>
   <div class="login-container">
     <div class="login-form">
@@ -66,91 +150,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '~/stores/user';
-import { useVuelidate } from '@vuelidate/core';
-import { required, minLength, email } from '@vuelidate/validators';
-import { useLocalStorage } from '@vueuse/core';
-import { authService } from '~/services/auth';
-
-const router = useRouter();
-const userStore = useUserStore();
-
-const account = ref('');
-const password = ref('');
-const rememberMe = ref(userStore.rememberMe);
-const loginError = ref('');
-const isLoading = ref(false);
-
-// 如果之前选择了记住密码，从localStorage加载保存的账号密码
-const savedCredentials = useLocalStorage('credentials', {
-  account: '',
-  password: '',
-});
-account.value = savedCredentials.value.account;
-password.value = savedCredentials.value.password;
-rememberMe.value = !!account.value;
-
-// 表单验证规则
-const rules = {
-  account: {
-    required,
-    email: email,
-  },
-  password: {
-    required,
-    minLength: minLength(6),
-  },
-};
-
-const v$ = useVuelidate(rules, { account, password });
-
-const handleLogin = async () => {
-  loginError.value = '';
-
-  // 验证表单
-  const isValid = await v$.value.$validate();
-  if (!isValid) return;
-
-  try {
-    isLoading.value = true;
-
-    // 调用登录接口
-    const { data } = await authService.login({
-      email: account.value,
-      password: password.value,
-    });
-
-    // 保存token
-    localStorage.setItem('token', data.value.token);
-
-    // 保存登录状态
-    userStore.setLoginState(true);
-    userStore.setUserInfo(data.value.userInfo);
-
-    // 处理记住密码
-    userStore.setRememberMe(rememberMe.value);
-    if (rememberMe.value) {
-      useLocalStorage('credentials', {
-        account: account.value,
-        password: password.value,
-      });
-    } else {
-      localStorage.removeItem('credentials');
-    }
-
-    // 登录成功后跳转
-    await router.push('/');
-  } catch (error) {
-    loginError.value = error.message || '登录失败，请稍后重试';
-  } finally {
-    isLoading.value = false;
-  }
-};
-</script>
 
 <style scoped>
 .login-container {

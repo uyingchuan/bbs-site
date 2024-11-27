@@ -1,4 +1,5 @@
-import { request } from '~/utils/request';
+import { $http, ApiError } from '~/utils/http';
+import type { LoginResponse } from '~/stores/user';
 
 interface LoginParams {
   email: string;
@@ -7,24 +8,12 @@ interface LoginParams {
 
 export const authService = {
   // 登录
-  login(data: LoginParams) {
-    return request('/auth/login', {
-      method: 'POST',
-      body: data,
-    });
-  },
+  async login(data: LoginParams): Promise<LoginResponse> {
+    const res = await $http.doPost<LoginResponse>('/auth/login', data);
+    if (res.success) {
+      return res.data!;
+    }
 
-  // 获取用户信息
-  getUserInfo() {
-    return request('/auth/user-info', {
-      method: 'GET',
-    });
-  },
-
-  // 登出
-  logout() {
-    return request('/auth/logout', {
-      method: 'POST',
-    });
+    throw new ApiError(res.message);
   },
 };
