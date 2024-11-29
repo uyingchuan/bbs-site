@@ -1,0 +1,88 @@
+@use "variables";
+
+.#{variables.$prefix}field {
+    margin-bottom: variables.$fieldMargin;
+}
+
+.#{variables.$prefix}field > label {
+    display: inline-block;
+    margin-bottom: variables.$fieldLabelMargin;
+}
+
+.#{variables.$prefix}field.#{variables.$prefix}grid > label {
+    display: flex;
+    align-items: center;
+}
+
+.#{variables.$prefix}field > small {
+    margin-top: variables.$helperTextMargin;
+}
+
+.#{variables.$prefix}field.#{variables.$prefix}grid,
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid {
+    margin-top: 0;
+}
+
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-fixed,
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-fixed,
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col,
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col,
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-1, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-1, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-2,
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-2, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-3, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-3, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-4, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-4, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-5, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-5, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-6, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-6,
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-7, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-7, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-8, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-8, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-9, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-9, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-10, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-10, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-11, 
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-11, 
+.#{variables.$prefix}field.#{variables.$prefix}grid .#{variables.$prefix}col-12,
+.#{variables.$prefix}formgrid.#{variables.$prefix}grid .#{variables.$prefix}col-12 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.#{variables.$prefix}formgroup-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.#{variables.$prefix}formgroup-inline .#{variables.$prefix}field,
+.#{variables.$prefix}formgroup-inline .#{variables.$prefix}field-checkbox,
+.#{variables.$prefix}formgroup-inline .#{variables.$prefix}field-radiobutton {
+    margin-right: variables.$fieldMargin;
+}
+
+.#{variables.$prefix}formgroup-inline .#{variables.$prefix}field > label,
+.#{variables.$prefix}formgroup-inline .#{variables.$prefix}field-checkbox > label,
+.#{variables.$prefix}formgroup-inline .#{variables.$prefix}field-radiobutton > label {
+    margin-right: variables.$fieldLabelMargin;
+    margin-bottom: 0;
+}
+
+.#{variables.$prefix}field-checkbox,
+.#{variables.$prefix}field-radiobutton {
+    margin-bottom: variables.$fieldMargin;
+    display: flex;
+    align-items: center;
+}
+
+.#{variables.$prefix}field-checkbox > label,
+.#{variables.$prefix}field-radiobutton > label {
+    margin-left: variables.$fieldLabelMargin;
+    line-height: 1;
+}

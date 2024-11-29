@@ -1,0 +1,9 @@
+@use "mixins";
+
+$list-style-props: (
+    'list-none': 'none',
+    'list-disc': 'disc',
+    'list-decimal': 'decimal'
+) !default;
+
+@include mixins.style-class('list-style', $list-style-props);

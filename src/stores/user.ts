@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
-  state: () => ({
+  state: (): UserState => ({
     isLoggedIn: false,
-    userInfo: null as any,
-    rememberMe: false,
+    userInfo: null,
   }),
 
   getters: {},
@@ -16,10 +15,6 @@ export const useUserStore = defineStore('user', {
 
     setUserInfo(info: any) {
       this.userInfo = info;
-    },
-
-    setRememberMe(status: boolean) {
-      this.rememberMe = status;
     },
 
     logout() {
@@ -39,5 +34,14 @@ export interface LoginResponse {
 export interface UserInfo {
   id: string;
   email: string;
-  userName: string;
+  username: string;
+  nickname: string;
+  description: string;
+  fansCount: number;
+  followCount: number;
+}
+
+interface UserState {
+  isLoggedIn: boolean;
+  userInfo?: UserInfo | null;
 }

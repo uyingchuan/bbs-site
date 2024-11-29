@@ -2,7 +2,7 @@ import { $http, ApiError } from '~/utils/http';
 import type { LoginResponse } from '~/stores/user';
 
 interface LoginParams {
-  email: string;
+  account: string;
   password: string;
 }
 

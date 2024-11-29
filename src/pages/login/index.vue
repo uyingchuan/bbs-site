@@ -6,18 +6,19 @@ import { useVuelidate } from '@vuelidate/core';
 import { email, minLength, required } from '@vuelidate/validators';
 import { useLocalStorage } from '@vueuse/core';
 import { authService } from '~/services/auth';
+import { StorageKey } from '~/utils/constants/storage';
 
 const router = useRouter();
 const userStore = useUserStore();
 
 const account = ref('');
 const password = ref('');
-const rememberMe = ref(userStore.rememberMe);
+const rememberMe = ref(false);
 const loginError = ref('');
 const isLoading = ref(false);
 
 // 如果之前选择了记住密码，从localStorage加载保存的账号密码
-const savedCredentials = useLocalStorage('credentials', {
+const savedCredentials = useLocalStorage(StorageKey.credentials, {
   account: '',
   password: '',
 });
@@ -51,25 +52,24 @@ const handleLogin = async () => {
 
     // 调用登录接口
     const res = await authService.login({
-      email: account.value,
+      account: account.value,
       password: password.value,
     });
     // 保存token
-    localStorage.setItem('token', res.token);
+    localStorage.setItem(StorageKey.token, res.token);
 
     // 保存登录状态
     userStore.setLoginState(true);
     userStore.setUserInfo(res.userInfo);
 
     // 处理记住密码
-    userStore.setRememberMe(rememberMe.value);
     if (rememberMe.value) {
-      useLocalStorage('credentials', {
+      savedCredentials.value = {
         account: account.value,
         password: password.value,
-      });
+      };
     } else {
-      localStorage.removeItem('credentials');
+      savedCredentials.value = null;
     }
 
     // 登录成功后跳转

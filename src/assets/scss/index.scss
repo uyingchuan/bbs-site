@@ -1,0 +1,13 @@
+@use "./primeflex/primeflex.min.css";
+@use './primeflex/themes/primeone-dark' as dark;
+@use './primeflex/themes/primeone-light' as light;
+
+@use "global";
+
+body[app-theme-style='dark'] {
+  @include dark.darkTheme();
+}
+
+body[app-theme-style='light'] {
+  @include light.lightTheme();
+}
